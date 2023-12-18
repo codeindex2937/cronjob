@@ -106,8 +106,9 @@ func (s *Manager[K]) runOverdueTasks() {
 
 	for _, task := range overdueTasks {
 		nextSchedule := task.Config.Next(nextTimeSlot)
-		if task.scheduledTime == nextSchedule {
-			log.Errorf("no schedule stepping? %v\n", task)
+		if task.scheduledTime.After(nextSchedule) {
+			// once task
+			continue
 		} else {
 			task.scheduledTime = nextSchedule
 			s.q.Insert(nextSchedule, task.ID, task)
