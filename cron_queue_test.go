@@ -10,8 +10,8 @@ import (
 func TestLinkedNodeCompare(t *testing.T) {
 	as := assert.New(t)
 	now := time.Now()
-	n1 := newCronList(now, "1", "node1")
-	n2 := newCronList(now.Add(1*time.Second), "2", "node2")
+	n1 := newCromItem(now, "1", "node1")
+	n2 := newCromItem(now.Add(1*time.Second), "2", "node2")
 
 	as.Equal(-1, n1.Compare(n2))
 	as.Equal(1, n2.Compare(n1))
@@ -22,7 +22,7 @@ func TestScheduleListSearch(t *testing.T) {
 	as := assert.New(t)
 	now := time.Now()
 	targetSched := now.Add(4 * time.Second)
-	schedList := newConList[string, string]()
+	schedList := newCronList[string, string]()
 	schedList.Insert(now.Add(3*time.Second), "3", "string3")
 	schedList.Insert(targetSched, "4", "string4")
 	schedList.Insert(now.Add(2*time.Second), "2", "string2")
@@ -36,7 +36,7 @@ func TestScheduleListSearch(t *testing.T) {
 func TestScheduleListPop(t *testing.T) {
 	as := assert.New(t)
 	now := time.Now()
-	schedList := newConList[string, string]()
+	schedList := newCronList[string, string]()
 	schedList.Insert(now.Add(3*time.Second), "3", "string3")
 	schedList.Insert(now.Add(4*time.Second), "4", "string4")
 	schedList.Insert(now.Add(2*time.Second), "2", "string2")
@@ -58,7 +58,7 @@ func TestScheduleListPop(t *testing.T) {
 func TestScheduleListRemove(t *testing.T) {
 	as := assert.New(t)
 	now := time.Now()
-	schedList := newConList[string, string]()
+	schedList := newCronList[string, string]()
 	schedList.Insert(now.Add(4*time.Second), "4", "string4")
 	schedList.Insert(now.Add(3*time.Second), "3", "string3")
 	as.Nil(schedList.Remove("3"))
@@ -69,7 +69,7 @@ func TestScheduleListRemove(t *testing.T) {
 func TestScheduleListIsEmpty(t *testing.T) {
 	as := assert.New(t)
 	now := time.Now()
-	schedList := newConList[string, string]()
+	schedList := newCronList[string, string]()
 	as.True(schedList.IsEmpty())
 
 	schedList.Insert(now.Add(4*time.Second), "4", "string4")

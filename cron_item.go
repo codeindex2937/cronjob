@@ -9,7 +9,7 @@ type CronItem[T any, K comparable] struct {
 	next      *CronItem[T, K]
 }
 
-func newCronList[T any, K comparable](sortValue time.Time, key K, value T) *CronItem[T, K] {
+func newCromItem[T any, K comparable](sortValue time.Time, key K, value T) *CronItem[T, K] {
 	return &CronItem[T, K]{sortValue, key, value, nil}
 }
 

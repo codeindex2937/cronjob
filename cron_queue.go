@@ -11,7 +11,7 @@ type CronQueue[T any, K comparable] struct {
 	head *CronItem[T, K]
 }
 
-func newConList[T any, K comparable]() *CronQueue[T, K] {
+func newCronList[T any, K comparable]() *CronQueue[T, K] {
 	return &CronQueue[T, K]{head: nil}
 }
 
@@ -28,7 +28,7 @@ func (s *CronQueue[T, K]) IsEmpty() bool {
 
 func (s *CronQueue[T, K]) Insert(sortKey time.Time, key K, value T) {
 	if s.head == nil {
-		s.head = newCronList(sortKey, key, value)
+		s.head = newCromItem(sortKey, key, value)
 		return
 	}
 
@@ -36,7 +36,7 @@ func (s *CronQueue[T, K]) Insert(sortKey time.Time, key K, value T) {
 	currentNode = s.head
 	var previousNode *CronItem[T, K]
 	var found bool
-	newNode := newCronList(sortKey, key, value)
+	newNode := newCromItem(sortKey, key, value)
 
 	for {
 		if currentNode.Compare(newNode) >= 0 {
