@@ -87,3 +87,11 @@ func TestScheduleListIsEmpty(t *testing.T) {
 	as.NoError(err)
 	as.True(schedList.IsEmpty())
 }
+
+func TestFindEmpty(t *testing.T) {
+	as := assert.New(t)
+	schedList := newCronList[string, string]()
+	ret, _, err := schedList.Find("")
+	as.Equal(ret, "")
+	as.Equal(err, ErrNoItem)
+}

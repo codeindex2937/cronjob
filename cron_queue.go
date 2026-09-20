@@ -67,13 +67,9 @@ func (s *CronQueue[T, K]) Insert(sortKey time.Time, key K, value T) {
 func (s *CronQueue[T, K]) Find(key K) (value T, nextSched time.Time, err error) {
 	var t T
 	currentNode := s.head
-	for {
+	for currentNode != nil {
 		if currentNode.key == key {
 			return currentNode.value, currentNode.sortValue, nil
-		}
-
-		if currentNode.next == nil {
-			break
 		}
 		currentNode = currentNode.next
 	}
